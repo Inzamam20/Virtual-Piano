@@ -21,7 +21,7 @@ Before running the project, ensure you have the following set up:
 1. Clone the repository to your local machine:
 
    ```bash
-   git clone https://github.com/yourusername/your-repo.git](https://github.com/Inzamam20/Virtual-Piano.git)](https://github.com/Inzamam20/Virtual-Piano.git
+   git clone https://github.com/Inzamam20/Virtual-Piano.git
 
 2. Update the mySettings.java file:
      * Set the absolute path for the logo.png file located inside the resources/images directory.
