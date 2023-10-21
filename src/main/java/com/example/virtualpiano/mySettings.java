@@ -1,14 +1,14 @@
 package com.example.virtualpiano;
 
 
-import java.awt.Desktop;
+import javafx.scene.input.KeyCode;
+
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import javafx.scene.input.KeyCode;
 
 public class mySettings {
     public static int streak = 0;
@@ -26,9 +26,11 @@ public class mySettings {
     public static char[] intCodeToChar = new char[MAXCODE];
     public static int[] charToIntCode = new int[MAXCODE];
 
-    public static String iconPath = "D:\\GitHUB\\Virtual-Piano\\src\\main\\resources\\com\\example\\img\\logo.png";
+    public static String iconPath = "D:\\GitHUB\\VirtualPianoFinal\\src\\main\\resources\\com\\example\\img\\logo.png";
+//    public static String iconPath = "C:\\Users\\LENOVO\\Desktop\\VirtualPiano\\src\\main\\resources\\com\\example\\img\\logo.png";
 
-    public static String folderPath = "D:\\GitHUB\\Virtual-Piano\\recordings";
+    public static String folderPath = "D:\\GitHUB\\VirtualPianoFinal\\recordings";
+//    public static String folderPath = "C:\\Users\\LENOVO\\Desktop\\VirtualPiano\\recordings";
 
     public static void openFolder(String folderPath) {
         if (Desktop.isDesktopSupported()) {

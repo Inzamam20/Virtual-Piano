@@ -1,25 +1,34 @@
 package com.example.virtualpiano;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+
+import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.sql.*;
 
 public class SQL {
 
-    private static String className = "com.mysql.cj.jdbc.Driver";   // for MySQL workbench or PlanetScale Database
-//    private static String className = "oracle.jdbc.driver.OracleDriver";  // for Oracle Database
+    public static String className = "com.mysql.cj.jdbc.Driver";   // for MySQL workbench or PlanetScale Database
+//    public static String className = "oracle.jdbc.driver.OracleDriver";  // for Oracle Database
 
 //  for PlaneScale Online Database
-//    private static String url = "jdbc:mysql://aws.connect.psdb.cloud/piano_application?sslMode=VERIFY_IDENTITY";    // for planetScale Online Database
-//    private static String username="ujuwtj5pehty8qq65f4x";    // for PlanetScale Online Database
-//    private static String password="pscale_pw_eNariAt6PloA0qudPxZ7zGHyFjyB3LmWFcgU8NLmWWu";   // for PlanetScale Online Database
+//    public static String url = "jdbc:mysql://aws.connect.psdb.cloud/piano_application?sslMode=VERIFY_IDENTITY";    // for planetScale Online Database
+//    public static String username="ujuwtj5pehty8qq65f4x";    // for PlanetScale Online Database
+//    public static String password="pscale_pw_eNariAt6PloA0qudPxZ7zGHyFjyB3LmWFcgU8NLmWWu";   // for PlanetScale Online Database
 
     // for MySQL Workbench
-    private static String url = "jdbc:mysql://localhost:3306/piano_application";  // for MySQL Workbench
-    private static String username="root";  // for MySQL Workbench
-    private static String password="myPiano";   // for MySQL Workbench
+    public static String url = "jdbc:mysql://localhost:3306/piano_application";  // for MySQL Workbench
+    public static String username="root";  // for MySQL Workbench
+    public static String password="myPiano";   // for MySQL Workbench
 
     //  for Oracle Database
-//    private static String url = "jdbc:oracle:thin:@localhost:1521/xe";            // for Oracle Database
-//    private static String username="PianoProject";
-//    private static String password="123";
+//    public static String url = "jdbc:oracle:thin:@localhost:1521:xe";            // for Oracle Database
+//    public static String username="ivan";
+//    public static String password="123";
     public static String EncryptDecrypt(String inp)
     {
         String key = "HUNDRED";
@@ -32,9 +41,7 @@ public class SQL {
     }
     public static boolean CheckUsernameAvailability(String UsernameToCheck)
     {
-
-//        String url = "jdbc:oracle:thin:@localhost:1521:xe";
-        String sqlQuery = "select * from VirtualPiano where username = ?";
+        String sqlQuery = "select * from virtualpiano where username = ?";
         try{
             // step1 load the driver class
             Class.forName(className);
@@ -65,7 +72,6 @@ public class SQL {
     }
     public static void addUser(String UsernameToAdd, String PasswordToAdd)
     {
-//        String url = "jdbc:oracle:thin:@localhost:1521:xe";
         String sqlQuery = "insert into virtualpiano values (?, ?, ?, ?, ?)";
         try{
             // step1 load the driver class
@@ -87,7 +93,7 @@ public class SQL {
 
             // saving the seettings
             mySettings.revertKeysToDefault();
-            sqlQuery = "insert into Piano_SETTINGS values(?, ?, ?)";
+            sqlQuery = "insert into piano_settings values(?, ?, ?)";
             pStmt = con.prepareStatement(sqlQuery);
             for(int i = 1 ; i <= 61 ; i++)
             {
@@ -111,7 +117,6 @@ public class SQL {
     }
     public static boolean checkPassword(String usernameToCheck, String passwordGiven)
     {
-//        String url = "jdbc:oracle:thin:@localhost:1521:xe";
         String sqlQuery = "select * from virtualpiano where username = ?";
         String acquiredPass = new String();
         try{
@@ -143,7 +148,6 @@ public class SQL {
     }
     public static void loadKeybinds(String User)
     {
-//        String url = "jdbc:oracle:thin:@localhost:1521:xe";
         String sqlQuery;
         try{
             // step1 load the driver class
@@ -181,7 +185,6 @@ public class SQL {
     }
     public static void saveKeybinds(String User)
     {
-//        String url = "jdbc:oracle:thin:@localhost:1521:xe";
         String sqlQuery;
         try{
             // step1 load the driver class
@@ -192,11 +195,11 @@ public class SQL {
 
 
             // step3 create the statement object
-            sqlQuery = "delete from Piano_SETTINGS where username = ?";
+            sqlQuery = "delete from piano_settings where username = ?";
             PreparedStatement pStmt = con.prepareStatement(sqlQuery);
             pStmt.setString(1, User);
             pStmt.executeUpdate();
-            sqlQuery = "insert into Piano_SETTINGS values(?, ?, ?)";
+            sqlQuery = "insert into piano_settings values(?, ?, ?)";
             pStmt = con.prepareStatement(sqlQuery);
             for(int i = 1 ; i <= 61 ; i++)
             {
@@ -219,7 +222,6 @@ public class SQL {
     }
     public static void loadSettings(String User)
     {
-//        String url = "jdbc:oracle:thin:@localhost:1521:xe";
         String sqlQuery;
         try{
             // step1 load the driver class
@@ -240,7 +242,7 @@ public class SQL {
                 mySettings.darkMode = rs.getInt(5);
                 mySettings.lastLog = rs.getDate(3);
                 mySettings.streak = rs.getInt(4);
-                if(Date.valueOf(java.time.LocalDate.now().minusDays(1)) == mySettings.lastLog)
+                if(Date.valueOf(java.time.LocalDate.now().minusDays(1)).equals( mySettings.lastLog))
                 {
                     mySettings.streak++;
                 }
@@ -265,7 +267,6 @@ public class SQL {
     }
     public static void saveSettings(String User)
     {
-//        String url = "jdbc:oracle:thin:@localhost:1521:xe";
         String sqlQuery = new String();
         try{
             // step1 load the driver class
@@ -300,8 +301,8 @@ public class SQL {
     }
     public static void saveMessage(String User,String Message)
     {
-        String username = "pgx0h6z19y43ltfsf8n7";
-        String password = "pscale_pw_8O02MGRjqZXhgSkBO2gy2fTkkx7smMJSCh4wyUdtilt";
+        String username = "md6p2m5o4ygwugvrj6ld";
+        String password = "pscale_pw_OAxV1OfOG8m2Efg1530h21S0XZp8SNAhEJsgci4GFO3";
         String url = "jdbc:mysql://aws.connect.psdb.cloud/messages?sslMode=VERIFY_IDENTITY";
         String sqlQuery = new String();
         try{
@@ -309,8 +310,8 @@ public class SQL {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(
                     "jdbc:mysql://aws.connect.psdb.cloud/messages?sslMode=VERIFY_IDENTITY",
-                    "pgx0h6z19y43ltfsf8n7",
-                    "pscale_pw_8O02MGRjqZXhgSkBO2gy2fTkkx7smMJSCh4wyUdtilt");
+                    "md6p2m5o4ygwugvrj6ld",
+                    "pscale_pw_OAxV1OfOG8m2Efg1530h21S0XZp8SNAhEJsgci4GFO3");
 
 
             sqlQuery = "insert into messages(username,text) values(?,?)";
@@ -340,8 +341,8 @@ public class SQL {
         String[] arr = new String[50];
         String finalMessage = new String();
         int index=0;
-        String usernameMYSQL = "pgx0h6z19y43ltfsf8n7";
-        String passwordMYSQL = "pscale_pw_8O02MGRjqZXhgSkBO2gy2fTkkx7smMJSCh4wyUdtilt";
+        String usernameMYSQL = "md6p2m5o4ygwugvrj6ld";
+        String passwordMYSQL = "pscale_pw_OAxV1OfOG8m2Efg1530h21S0XZp8SNAhEJsgci4GFO3";
         String url = "jdbc:mysql://aws.connect.psdb.cloud/messages?sslMode=VERIFY_IDENTITY";
         String sqlQuery = new String();
         try{
@@ -349,8 +350,8 @@ public class SQL {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(
                     "jdbc:mysql://aws.connect.psdb.cloud/messages?sslMode=VERIFY_IDENTITY",
-                    "pgx0h6z19y43ltfsf8n7",
-                    "pscale_pw_8O02MGRjqZXhgSkBO2gy2fTkkx7smMJSCh4wyUdtilt");
+                    "md6p2m5o4ygwugvrj6ld",
+                    "pscale_pw_OAxV1OfOG8m2Efg1530h21S0XZp8SNAhEJsgci4GFO3");
             sqlQuery = "select * from messages order by sent desc";
 
 
@@ -390,7 +391,6 @@ public class SQL {
     public static String getGameSequence(int ID)
     {
         String sequence = new String();
-//        String url = "jdbc:oracle:thin:@localhost:1521:xe";
         String sqlQuery = new String();
         try{
             // step1 load the driver class
@@ -424,13 +424,92 @@ public class SQL {
 
         return sequence;
     }
+
+    public static String getGameSequence_fromTableView(String NAME)
+    {
+        String sequence = new String();
+        String sqlQuery = new String();
+        try{
+            // step1 load the driver class
+            Class.forName(className);
+
+            // step2 create the connection object
+            Connection con = DriverManager.getConnection(url, username, password);
+            sqlQuery = "select SEQUENCE from game where NAME = ?";
+
+
+            // step3 create the statement object
+
+            PreparedStatement pStmt = con.prepareStatement(sqlQuery);
+            pStmt.setString(1,NAME);
+            ResultSet rs = pStmt.executeQuery();
+            while(rs.next())
+            {
+                sequence = rs.getString(1);
+            }
+
+            // step4 drop all the connections
+            con.close();
+            pStmt.close();
+        } catch (SQLException e)
+        {
+            System.out.println(" Error while connecting to database. Exception code : " + e);
+        } catch (ClassNotFoundException e)
+        {
+            System.out.println(" Failed to register driver . Exception code : " + e );
+        }
+
+        return sequence;
+    }
+
+//    public static void getAllSongs()
+//    {
+////        String sequence = new String();
+////        int idObtained;
+//        String GameName = new String();
+////        String ret = new String();
+//        String sqlQuery = new String();
+//        try{
+//            // step1 load the driver class
+//            Class.forName(className);
+//
+//            // step2 create the connection object
+//            Connection con = DriverManager.getConnection(url, username, password);
+//            sqlQuery = "select NAME from game";
+//
+//
+//            // step3 create the statement object
+//
+//            PreparedStatement pStmt = con.prepareStatement(sqlQuery);
+//            ResultSet rs = pStmt.executeQuery();
+//            while(rs.next())
+//            {
+//
+//                GameName = rs.getString("NAME");
+//                System.out.println(GameName);
+//                SelectGameController.songSearchModelObservableList.add(new SongSearchModel(GameName));
+//
+//            }
+//            SelectGameController.NAME.setCellValueFactory(new PropertyValueFactory<>("NAME"));
+//            SelectGameController.tableView.setItems(SelectGameController.songSearchModelObservableList);
+//
+//            // step4 drop all the connections
+//            con.close();
+//            pStmt.close();
+//        } catch (SQLException e)
+//        {
+//            System.out.println(" Error while connecting to database. Exception code : " + e);
+//        } catch (ClassNotFoundException e)
+//        {
+//            System.out.println(" Failed to register driver . Exception code : " + e );
+//        }
+//    }
     public static String getAllGames()
     {
         String sequence = new String();
         int idObtained;
         String GameName = new String();
         String ret = new String();
-//        String url = "jdbc:oracle:thin:@localhost:1521:xe";
         String sqlQuery = new String();
         try{
             // step1 load the driver class
@@ -471,7 +550,6 @@ public class SQL {
         int scoreObtained=0;
         System.out.println(score);
         boolean flag=false;
-//        String url = "jdbc:oracle:thin:@localhost:1521:xe";
         String sqlQuery = new String();
         String sqlQuery2 = new String();
         String sqlQuery3 = new String();
@@ -536,7 +614,6 @@ public class SQL {
         String nameObtained="";
         boolean flag=false;
         String ret = "";
-//        String url = "jdbc:oracle:thin:@localhost:1521:xe";
         String sqlQuery = new String();
         try{
             // step1 load the driver class
@@ -582,4 +659,5 @@ public class SQL {
         }
         return ret;
     }
+
 }
