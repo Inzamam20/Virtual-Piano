@@ -25,6 +25,7 @@ Before running the project, ensure you have the following set up:
 
 2. Update the mySettings.java file:
      * Set the absolute path for the logo.png file located inside the resources/images directory.
+     * Set the recording path to a directory of your choice, where you want to save your recorded tunes.
 
 3. Database Configuration:
      * Use MySQL Workbench to import and sync the database. You can find the database file in the **`libs/Database`** folder as **`Piano_Application.sql`**.
