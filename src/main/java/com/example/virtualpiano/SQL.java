@@ -14,7 +14,7 @@ public class SQL {
     // for MySQL Workbench
     private static String url = "jdbc:mysql://localhost:3306/piano_application";  // for MySQL Workbench
     private static String username="root";  // for MySQL Workbench
-    private static String password="myPiano";   // for MySQL Workbench
+    private static String password="1234";   // for MySQL Workbench
 
     //  for Oracle Database
 //    private static String url = "jdbc:oracle:thin:@localhost:1521/xe";            // for Oracle Database
