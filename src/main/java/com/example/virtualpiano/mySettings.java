@@ -26,9 +26,9 @@ public class mySettings {
     public static char[] intCodeToChar = new char[MAXCODE];
     public static int[] charToIntCode = new int[MAXCODE];
 
-    public static String iconPath = "J:\\Github\\Virtual-Piano\\src\\main\\resources\\com\\example\\img\\logo.png";
+    public static String iconPath = "D:\\GitHUB\\Virtual-Piano\\src\\main\\resources\\com\\example\\img\\logo.png";
 
-    public static String folderPath = "J:\\Github\\Virtual-Piano\\recordings";
+    public static String folderPath = "D:\\Github\\Virtual-Piano\\recordings";
 
     public static void openFolder(String folderPath) {
         if (Desktop.isDesktopSupported()) {
