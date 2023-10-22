@@ -1,0 +1,59 @@
+CREATE USER PianoProject Identified BY 123;
+GRANT ALL PRIVILEGES TO PianoProject;
+
+CREATE TABLE VirtualPiano(
+    USERNAME VARCHAR2(30) NOT NULL,
+    PASSWORD VARCHAR2(30),
+    LASTLOGIN DATE,
+    STREAK NUMBER(38),
+    DARKMODE NUMBER(38)
+);
+
+CREATE TABLE `piano_application`.`virtualpiano` (
+  `USERNAME` VARCHAR(30) NOT NULL,
+  `PASSWORD` VARCHAR(30) NULL,
+  `LASTLOGIN` DATE NULL,
+  `STREAK` DECIMAL(38) NULL,
+  `DARKMODE` DECIMAL(38) NULL);
+
+
+CREATE TABLE piano_settings (
+USERNAME VARCHAR2(50),
+BUTTON NUMBER(38),
+CODE NUMBER(38)
+);
+
+CREATE TABLE `piano_application`.`piano_settings` (
+  `USERNAME` VARCHAR(50) NULL,
+  `BUTTON` DECIMAL(38) NULL,
+  `CODE` DECIMAL(38) NULL);
+
+
+
+CREATE TABLE game (
+ID NUMBER(38) NOT NULL,
+SEQUENCE VARCHAR2(500),
+NAME VARCHAR2(100)
+);
+CREATE TABLE `piano_application`.`game` (
+  `ID` DECIMAL(38) NOT NULL,
+  `SEQUENCE` VARCHAR(500) NULL,
+  `NAME` VARCHAR(100) NULL);
+
+
+CREATE TABLE scores (
+GAME_ID DECIMAL(38),
+SCORE DECIMAL(38),
+USERNAME VARCHAR(30)
+);
+CREATE TABLE `piano_application`.`scores` (
+  `GAME_ID` DECIMAL(38) NULL,
+  `SCORE` DECIMAL(38) NULL,
+  `USERNAME` VARCHAR(30) NULL);
+
+
+insert into game values(1,'etyy yuii iouu ytty','He is a Pirate (Demo)'); 
+
+insert into game values(2,'Ipsd s iooip psdfds pooioopi ipsd s iopoip psdfiopoiiiooii iiooii','See You Again');
+
+insert into game values(3, 'tyt sao uyuyt', '14th');
